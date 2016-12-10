@@ -3,7 +3,7 @@
 
 Команда для компиляции:
 
-gcc <name>.c -o <name> -l ncurses
+gcc "<"name_file">".c -o "<"name_file">" -l ncurses
 
 Для добавления ncurses.h:
 
