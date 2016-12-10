@@ -1,4 +1,3 @@
-// gcc list.c -o list -l ncurses
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
