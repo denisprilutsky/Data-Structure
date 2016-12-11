@@ -1,4 +1,3 @@
-// gcc LIFO.c -o LIFO -lncurse
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
