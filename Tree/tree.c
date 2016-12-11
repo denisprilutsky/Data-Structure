@@ -1,4 +1,3 @@
-// gcc tree.c -o tree -l ncurses
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
