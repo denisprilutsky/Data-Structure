@@ -1,5 +1,4 @@
 #include <ncurses.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
 
@@ -100,8 +99,9 @@ int *pull( int *DelTree ) {
 }
 
 int main( int NumTerm, char **InTerm ) {
+	system("clear");
 	int *Tree = NULL; // Дерево
-	char *NewData; // Вводимые данные для новой ячейки
+	char NewData[255]; // Вводимые данные для новой ячейки
 	int i = 0;
 	NumAll = 0;
 #if Test==1
@@ -114,14 +114,28 @@ int main( int NumTerm, char **InTerm ) {
 	treeprint(Tree);
 	getch();
 #elif Test==2
-	printf("Test 2\n");
-	printf("NumTerm: %i \n", (NumTerm - 1));
+	printf( "Test 2\n" );
+	printf( "NumTerm: %i \n", (NumTerm - 1) );
 	Tree = (int*) malloc( sizeof(int) * (NumTerm - 1) );
 	for( i = 1; i < (NumTerm - 1); i++ ) {
 		printf("%i\n", atoi(InTerm[i]));
-		push( Tree, (int)atoi(InTerm[i]) );
+		Tree = (int*) push( Tree, (int)atoi(InTerm[i]) );
 	}
-	treeprint(Tree);
+	if( NumAll != 0 ) treeprint(Tree);
+	getch();
+#elif Test==3
+	printf("Test 3\n");
+	int *NewTree = NULL;
+	for( i = 1; i < (NumTerm - 1); i++ ) {
+		printf( "%i\n", atoi(InTerm[i]) );
+		NewTree = (int*) malloc( sizeof(int) * i );
+		NewTree = push( Tree, (int)atoi(InTerm[i]) );
+		Tree = (int*) malloc( sizeof(NewTree) ); // * i );
+		Tree = NewTree;
+		free(NewTree);
+	}
+	if( (NumTerm - 1) != 0 ) treeprint(Tree);
+	free(Tree);
 	getch();
 #else
 	initscr(); // Инициализация ncurses.h
@@ -133,8 +147,9 @@ int main( int NumTerm, char **InTerm ) {
 				clear(); // Очистка терминала
 				printw("Enter the Data Of Number:\n");
 				refresh();
-				getstr(NewData);
-				//printw("%i\n", NewData);
+				fflush(stdin);
+				//getstr(NewData);
+				printw("%i\n", NewData);
 				i++;
 				Tree = (int*) realloc( Tree, (sizeof(int) * (i)) );
 				Tree = push( Tree, (int)atoi(NewData) );
